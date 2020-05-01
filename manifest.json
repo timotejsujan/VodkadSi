@@ -3,9 +3,13 @@
   "manifest_version": 2,
   "name": "VodkaďSi?",
   "version": "1.0",
-  "description": "Program na odkrývání dezinformačních webů a chytání motýlů.",
+  "description": "Odkrýváme dezinformace a chytáme motýle.",
   "permissions": [ "tabs", "http://*/*", "contextMenus", "storage" ],
-  "icons":{"64":"icons/poop.png"},
+  "icons":{
+    "16":"icons/poop16.png",
+    "48":"icons/poop48.png",
+    "128":"icons/poop128.png"
+  },
   "web_accessible_resources": ["icons/butterfly.png", "icons/warning.png"],
   "options_ui": {
       "page": "options.html",
@@ -16,7 +20,7 @@
     "persistent": false
   },
   "browser_action" : {
-  	"default_icon" : "icons/poop.png",
+  	"default_icon" : "icons/poop16.png",
   	"default_title": "Tu si vodkaď",
   	"default_popup" : "options.html"
   },
