@@ -120,6 +120,7 @@ var vodkadsi_babis = new Array(
 	"mafra.cz",
 	"mavex-agro.cz",
 	"tatramleko.cz",
+	"nadace-agrofert.cz",
 	"navosfarmtechnic.cz",
 	"navos-km.cz",
 	"novydvur.navos-km.cz",
