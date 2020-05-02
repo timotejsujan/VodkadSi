@@ -1,12 +1,12 @@
 
-var api;
+var vodkadsi_api;
 if (chrome == null){
-	api = browser;
+	vodkadsi_api = browser;
 } else{
-	api = chrome;
+	vodkadsi_api = chrome;
 }
 var border_switch = "";
-api.storage.sync.get(['border_switch'], function(result) {
+vodkadsi_api.storage.sync.get(['border_switch'], function(result) {
 		border_switch =  result.border_switch;
 		if (border_switch == null) {
 			border_switch = true;
@@ -17,6 +17,8 @@ window.setInterval(vodkadsiCallback, 1000);
 
 function vodkadsiCallback() {
 	var article = $("[role=article]");
+	var tagArticle = document.getElementsByTagName("article");
+	article = [...new Set([...article, ...tagArticle])];
 	for (var i = 0; i < article.length; i++) {
 		if(!article[i].getAttribute("vodkadsi")){
 			article[i].setAttribute("vodkadsi", true);
@@ -26,10 +28,10 @@ function vodkadsiCallback() {
 			var found = false;
 			for (var j = 0; j < articleHrefs.length; j++){
 				if (dezin_switch){
-					found = checkArticle(list, article[i], articleHrefs[j], true);
+					found = vodkadsi_checkArticle(vodkadsi_list, article[i], articleHrefs[j], true);
 				}
 				if (babis_switch){
-					found = found || checkArticle(babis, article[i], articleHrefs[j], false);
+					found = found || vodkadsi_checkArticle(vodkadsi_babis, article[i], articleHrefs[j], false);
 				}
 				if (found){
 					break;
@@ -39,7 +41,7 @@ function vodkadsiCallback() {
 	}
 };
 
-function checkArticle(list, article, href, dez){
+function vodkadsi_checkArticle(list, article, href, dez){
 	for(var j = 0; j < list.length; j++){
 		var li = list[j].toLowerCase();
 		if (href.startsWith(li) || href.includes("."+li) || href.includes("//"+li)){
@@ -48,8 +50,8 @@ function checkArticle(list, article, href, dez){
 			var iconPath = '';
 			//var bgcolor = '';
 			if (dez){
-				color = 'red';
-				text = 'Příspěvek obsahuje odkaz na dezinformační stránku ';
+				color = '#D64933';
+				text = 'Příspěvek obsahuje odkaz na nedůvěryhodnou stránku ';
 				iconPath = 'icons/warning.png';
 				//bgcolor = '#F08080';
 			} else{
@@ -58,7 +60,7 @@ function checkArticle(list, article, href, dez){
 				iconPath = 'icons/butterfly.png';
 				//bgcolor = '#FFFACD';
 			}
-			var icon = createIcon(iconPath, text);
+			var icon = vodkadsi_createIcon(iconPath, text);
 			var elem = document.createElement("div");
 			//elem.style.backgroundColor = "white";
 			elem.appendChild(icon);
@@ -75,9 +77,9 @@ function checkArticle(list, article, href, dez){
 	return false;	
 };
 
-function createIcon(iconPath, text){
+function vodkadsi_createIcon(iconPath, text){
 	var elem = document.createElement("img");
-	elem.src = api.extension.getURL(iconPath);
+	elem.src = vodkadsi_api.extension.getURL(iconPath);
 	elem.classList.add("vodkadsi-icon");
 	elem.setAttribute("alt", "Icon");
 	//elem.setAttribute("data-hover", "tooltip");

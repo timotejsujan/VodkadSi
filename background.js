@@ -1,15 +1,15 @@
 
-var api;
+var vodkadsi_api;
 if (chrome == null){
-	 api = browser;
+	vodkadsi_api = browser;
 }{
-	api = chrome;
+	vodkadsi_api = chrome;
 }
 
-api.runtime.onMessage.addListener(
+vodkadsi_api.runtime.onMessage.addListener(
  function(request, sender, sendResponse) {
  
-	     api.browserAction.setIcon({
+	vodkadsi_api.browserAction.setIcon({
 	         path: request.newIconPath,
 	         tabId: sender.tab.id
 	     });
