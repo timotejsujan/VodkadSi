@@ -17,7 +17,7 @@
     },
   "background": {
     "scripts": ["background.js"],
-    "persistent": false
+    "persistent":false
   },
   "browser_action" : {
   	"default_icon" : "icons/poop16.png",
@@ -27,13 +27,23 @@
   "content_scripts": [
     {
       "matches": ["*://*.facebook.com/*"],
-      "js": ["jquery.js", "lists.js", "base.js"],
+      "js": ["jquery.js", "lists.js", "base.js", "fb.js"],
       "css": ["fb.css"]
     },
     {
       "matches": ["*://*.twitter.com/*"],
-      "js": ["jquery.js", "lists.js", "base.js"],
+      "js": ["jquery.js", "lists.js", "base.js", "twitter.js"],
       "css": ["twitter.css"]
+    },
+    {
+      "matches": ["*://www.google.com/*","*://www.google.cz/*", "*://www.google.sk/*"],
+      "js": ["jquery.js", "lists.js", "base.js", "google.js"],
+      "css": ["google.css"]
+    },
+    {
+      "matches": ["*://search.seznam.cz/*"],
+      "js": ["jquery.js", "lists.js", "base.js", "seznam.js"],
+      "css": ["google.css"]
     },
     {
       "matches": ["<all_urls>"],
