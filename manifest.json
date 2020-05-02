@@ -1,55 +1,122 @@
 {
-
   "manifest_version": 2,
   "name": "VodkaďSi?",
   "version": "1.0",
   "description": "Odkrýváme dezinformace a chytáme motýle.",
-  "permissions": [ "tabs", "http://*/*", "contextMenus", "storage" ],
-  "icons":{
-    "16":"icons/poop16.png",
-    "48":"icons/poop48.png",
-    "128":"icons/poop128.png"
+  "permissions": [
+    "tabs",
+    "http://*/*",
+    "contextMenus",
+    "storage"
+  ],
+  "icons": {
+    "16": "icons/poop16.png",
+    "48": "icons/poop48.png",
+    "128": "icons/poop128.png"
   },
-  "web_accessible_resources": ["icons/butterfly.png", "icons/warning.png"],
+  "web_accessible_resources": [
+    "icons/butterfly.png",
+    "icons/warning.png"
+  ],
   "options_ui": {
-      "page": "options.html",
-      "open_in_tab": false
-    },
-  "background": {
-    "scripts": ["background.js"],
-    "persistent":false
+    "page": "options.html",
+    "open_in_tab": false
   },
-  "browser_action" : {
-  	"default_icon" : "icons/poop16.png",
-  	"default_title": "Tu si vodkaď",
-  	"default_popup" : "options.html"
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_icon": "icons/poop16.png",
+    "default_title": "Tu si vodkaď",
+    "default_popup": "options.html"
   },
   "content_scripts": [
     {
-      "matches": ["*://*.facebook.com/*"],
-      "js": ["jquery.js", "lists.js", "base.js", "fb.js"],
-      "css": ["fb.css"]
+      "matches": [
+        "*://*.facebook.com/*"
+      ],
+      "js": [
+        "jquery.js",
+        "lists.js",
+        "base.js",
+        "fb.js"
+      ],
+      "css": [
+        "fb.css"
+      ]
     },
     {
-      "matches": ["*://*.twitter.com/*"],
-      "js": ["jquery.js", "lists.js", "base.js", "twitter.js"],
-      "css": ["twitter.css"]
+      "matches": [
+        "*://*.twitter.com/*"
+      ],
+      "js": [
+        "jquery.js",
+        "lists.js",
+        "base.js",
+        "twitter.js"
+      ],
+      "css": [
+        "twitter.css"
+      ]
     },
     {
-      "matches": ["*://www.google.com/*","*://www.google.cz/*", "*://www.google.sk/*"],
-      "js": ["jquery.js", "lists.js", "base.js", "google.js"],
-      "css": ["google.css"]
+      "matches": [
+        "*://www.google.com/*",
+        "*://www.google.cz/*",
+        "*://www.google.sk/*"
+      ],
+      "js": [
+        "jquery.js",
+        "lists.js",
+        "base.js",
+        "google.js"
+      ],
+      "css": [
+        "google.css"
+      ]
     },
     {
-      "matches": ["*://search.seznam.cz/*"],
-      "js": ["jquery.js", "lists.js", "base.js", "seznam.js"],
-      "css": ["google.css"]
+      "matches": [
+        "*://search.seznam.cz/*"
+      ],
+      "js": [
+        "jquery.js",
+        "lists.js",
+        "base.js",
+        "seznam.js"
+      ],
+      "css": [
+        "google.css"
+      ]
     },
     {
-      "matches": ["<all_urls>"],
-      "js": ["lists.js", "checkurl.js"],
-      "css": ["site.css"]
+      "matches": [
+        "*://*.bing.com/*"
+      ],
+      "js": [
+        "jquery.js",
+        "lists.js",
+        "base.js",
+        "bing.js"
+      ],
+      "css": [
+        "google.css"
+      ]
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "lists.js",
+        "checkurl.js"
+      ],
+      "css": [
+        "site.css"
+      ]
     }
   ]
-
 }

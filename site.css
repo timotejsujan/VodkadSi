@@ -1,13 +1,13 @@
 .vodkadsi-div-settings {
-	font-family:sans-serif;
-	font-size:15px;
-	padding: 5px 5px 5px 5px;
+  font-family: sans-serif;
+  font-size: 15px;
+  padding: 5px 5px 5px 5px;
 }
 
 .vodkadsi-icon-settings {
-	width: 20px;
-	height: 20px;
-	margin: 0px 5px -4px 0px;
+  width: 20px;
+  height: 20px;
+  margin: 0px 5px -4px 0px;
 }
 
 .vodkadsi-switch-set {
@@ -80,15 +80,15 @@ input:checked + .vodkadsi-slider:before {
 }
 
 .vodkadsi-options {
-	width:300px;
-	height:130px;
-	font-size:15px;
-  padding:5px;
+  width: 300px;
+  height: 130px;
+  font-size: 15px;
+  padding: 5px;
 }
 
 .vodkadsi-green {
   background-color: #eaf6ff;
-  color:#2E2D4D;
+  color: #2E2D4D;
 }
 
 .vodkadsi-fa {
@@ -98,12 +98,12 @@ input:checked + .vodkadsi-slider:before {
   text-align: center;
   text-decoration: none;
   margin: -5px 0px 0px 0px;
-  float:right;
+  float: right;
   border-radius: 30px
 }
 
 .vodkadsi-fa:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .vodkadsi-fb {
