@@ -262,6 +262,7 @@ var vodkadsi_list = new Array(
 	"infokuryr.cz",
 	"infovojna.sk",
 	"infowars.cz",
+	"Instory.cz",
 	"ipribeh.cz",
 	"isstras.eu",
 	"je-to-inak.livejournal.com",
