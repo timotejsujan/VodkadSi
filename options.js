@@ -1,3 +1,5 @@
+
+// workaround for compatibility with Mozilla Firefox extensions
 var vodkadsi_api;
 if (chrome == null) {
   vodkadsi_api = browser
@@ -34,6 +36,7 @@ function vodkadsi_restore_options() {
 
 }
 
+// for Mozilla Firefox
 if (chrome == null) {
   function updateUI(restoredSettings) {
     document.getElementById(

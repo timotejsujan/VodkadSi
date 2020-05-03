@@ -1,28 +1,5 @@
-/*
-var api;
-if (chrome == null){
-	api = browser;
-} else{
-	api = chrome;
-}
-var babis_switch;
 
-api.storage.sync.get(['babis_switch'], function(result) {
-        babis_switch =  result.babis_switch;
-        if (babis_switch){
-        	checkUrl(babis, "icons/butterfly.png");
-        }
-});
-
-var dezin_switch;
-
-api.storage.sync.get(['dezin_switch'], function(result) {
-        dezin_switch =  result.dezin_switch;
-        if (dezin_switch) {
-        	checkUrl(list, "icons/warning.png");
-        }
-});
-*/
+// list of urls of Andrej Babis
 var vodkadsi_babis = new Array(
     "5plus2.cz",
     "Acomware.cz",
@@ -184,6 +161,7 @@ var vodkadsi_babis = new Array(
     "zznpolabi.cz"
 );
 
+// list of untruested urls
 const vodkadsi_list = ["ac24.cz",
   "aeronet.cz",
   "afinabul.blog.cz",

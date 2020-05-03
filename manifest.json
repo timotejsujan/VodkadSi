@@ -1,12 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "VodkaďSi?",
+  "name": "Vodkaď si?",
   "version": "1.0",
-  "description": "Odkrýváme dezinformace a chytáme motýle.",
+  "description": "Odkrýváme dezinformace a chytáme motýle",
   "permissions": [
-    "tabs",
-    "http://*/*",
-    "contextMenus",
     "storage"
   ],
   "icons": {
@@ -36,16 +33,39 @@
   "content_scripts": [
     {
       "matches": [
+        "<all_urls>"
+      ],
+      "exclude_matches": [
+        "*://*.facebook.com/*",
+        "*://*.twitter.com/*",
+        "*://www.google.com/*",
+        "*://www.google.cz/*",
+        "*://www.google.sk/*",
+        "*://search.seznam.cz/*",
+        "*://*.bing.com/*"
+      ],
+      "js": [
+        "lists.js",
+        "checkurl.js"
+      ],
+      "css": [
+        "css/site.css"
+      ]
+    },
+    {
+      "matches": [
         "*://*.facebook.com/*"
       ],
       "js": [
         "jquery.js",
         "lists.js",
+        "checkurl.js",
         "base.js",
-        "fb.js"
+        "page_js/fb.js"
       ],
       "css": [
-        "fb.css"
+        "css/site.css",
+        "css/fb.css"
       ]
     },
     {
@@ -55,11 +75,13 @@
       "js": [
         "jquery.js",
         "lists.js",
+        "checkurl.js",
         "base.js",
-        "twitter.js"
+        "page_js/twitter.js"
       ],
       "css": [
-        "twitter.css"
+        "css/site.css",
+        "css/twitter.css"
       ]
     },
     {
@@ -68,54 +90,51 @@
         "*://www.google.cz/*",
         "*://www.google.sk/*"
       ],
+      "run_at": "document_idle",
       "js": [
         "jquery.js",
         "lists.js",
+        "checkurl.js",
         "base.js",
-        "google.js"
+        "page_js/google.js"
       ],
       "css": [
-        "google.css"
+        "css/site.css",
+        "css/google.css"
       ]
     },
     {
       "matches": [
         "*://search.seznam.cz/*"
       ],
+      "run_at": "document_idle",
       "js": [
         "jquery.js",
         "lists.js",
+        "checkurl.js",
         "base.js",
-        "seznam.js"
+        "page_js/seznam.js"
       ],
       "css": [
-        "google.css"
+        "css/site.css",
+        "css/google.css"
       ]
     },
     {
       "matches": [
         "*://*.bing.com/*"
       ],
+      "run_at": "document_idle",
       "js": [
         "jquery.js",
         "lists.js",
+        "checkurl.js",
         "base.js",
-        "bing.js"
+        "page_js/bing.js"
       ],
       "css": [
-        "google.css"
-      ]
-    },
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "lists.js",
-        "checkurl.js"
-      ],
-      "css": [
-        "site.css"
+        "css/site.css",
+        "css/google.css"
       ]
     }
   ]
