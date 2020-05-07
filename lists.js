@@ -17,6 +17,8 @@ var vodkadsi_babis = new Array(
     "JenProMuze.cz",
     "jenprozeny.cz",
     "lidovky.cz",
+    "mafra.cz",
+    "mafra.sk",
     "metro.cz",
     "mobil.cz",
     "ocko.tv",

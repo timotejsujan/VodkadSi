@@ -7,17 +7,21 @@ if (chrome == null) {
   vodkadsi_api = chrome;
 }
 
-// loads the border switch settings
-var border_switch = "";
-vodkadsi_api.storage.sync.get(['border_switch'], function (result) {
-  border_switch = result.border_switch;
-  if (border_switch == null) {
-    border_switch = true;
+function waitForCheckPage(article){
+  if(babis_switch !== "" && dezin_switch !== "" && border_switch !== ""){
+    vodkadsi_checkPage(article);
+  } else{
+    getSettings();
+    setTimeout(waitForCheckPage, 1000);
   }
-});
+}
 
 // checks the given elements of current webpage for matches with untrusted urls or urls of Andrej Babis
 function vodkadsi_checkPage(article) {
+  if (article == undefined){
+    vodkadsiCallback();
+    return;
+  }
   for (var i = 0; i < article.length; i++) {
     // if the element was already checked then it doesn't need to be checked again
     if (!article[i].getAttribute("vodkadsi")) {
@@ -107,3 +111,4 @@ function vodkadsi_createIcon(iconPath, text) {
   elem.setAttribute("title", text);
   return elem;
 }
+

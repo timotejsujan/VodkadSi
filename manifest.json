@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Vodkaď si?",
-  "version": "1.0",
+  "version": "1.11",
   "description": "Odkrýváme dezinformace a chytáme motýle",
   "permissions": [
     "storage"
@@ -57,7 +57,7 @@
         "*://*.facebook.com/*"
       ],
       "js": [
-        "jquery.js",
+        "jquery.min.js",
         "lists.js",
         "checkurl.js",
         "base.js",
@@ -73,7 +73,7 @@
         "*://*.twitter.com/*"
       ],
       "js": [
-        "jquery.js",
+        "jquery.min.js",
         "lists.js",
         "checkurl.js",
         "base.js",
@@ -90,9 +90,8 @@
         "*://www.google.cz/*",
         "*://www.google.sk/*"
       ],
-      "run_at": "document_idle",
       "js": [
-        "jquery.js",
+        "jquery.min.js",
         "lists.js",
         "checkurl.js",
         "base.js",
@@ -107,9 +106,8 @@
       "matches": [
         "*://search.seznam.cz/*"
       ],
-      "run_at": "document_idle",
       "js": [
-        "jquery.js",
+        "jquery.min.js",
         "lists.js",
         "checkurl.js",
         "base.js",
@@ -124,9 +122,8 @@
       "matches": [
         "*://*.bing.com/*"
       ],
-      "run_at": "document_idle",
       "js": [
-        "jquery.js",
+        "jquery.min.js",
         "lists.js",
         "checkurl.js",
         "base.js",

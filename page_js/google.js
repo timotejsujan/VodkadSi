@@ -1,10 +1,8 @@
 
-$(document).ready(function () {
-  vodkadsiCallback()
-});
+window.onload = function() {vodkadsiCallback()};
 
 function vodkadsiCallback() {
   // checking for every search result from google
   const article = $("#rso > div");
-  vodkadsi_checkPage(article);
+  waitForCheckPage(article);
 }

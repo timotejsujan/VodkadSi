@@ -92,14 +92,8 @@ input:checked + .vodkadsi-slider:before {
 }
 
 .vodkadsi-fa {
-  padding: 4px;
-  font-size: 30px;
-  width: 15px;
-  text-align: center;
-  text-decoration: none;
   margin: -5px 0px 0px 0px;
   float: right;
-  border-radius: 30px
 }
 
 .vodkadsi-fa:hover {
@@ -107,12 +101,9 @@ input:checked + .vodkadsi-slider:before {
 }
 
 .vodkadsi-fb {
-  background: #2E2D4D;
-  color: #eaf6ff;
+  margin-right: 0px;
 }
 
 .vodkadsi-home {
-  background: #2E2D4D;
-  color: #eaf6ff;
   margin-right: 5px;
 }
