@@ -27,8 +27,14 @@ function vodkadsi_checkPage(article) {
     if (!article[i].getAttribute("vodkadsi")) {
       // sets the attribute that element was already checked
       article[i].setAttribute("vodkadsi", true);
+      // copies the DOM
+      var li = article[i].cloneNode(true);
+      var form = li.querySelector("form");
+      if (form != null){
+        form.parentNode.removeChild(form);
+      }
       // gets the inner text of element
-      const articleText = article[i].innerText.toLowerCase();
+      const articleText = li.innerText.toLowerCase();
       // splitting on new line
       const articleHrefs = articleText.split("\n");
       var found = false;
@@ -73,11 +79,11 @@ function vodkadsi_checkArticle(list, article, href, dez) {
       // if checking for untrusted urls
       if (dez) {
         color = '#D64933';
-        text = 'Příspěvek obsahuje odkaz na nedůvěryhodnou stránku ';
+        text = 'Nedůvěryhodná stránka: ';
         iconPath = 'icons/warning.png';
       } else { // if checking for urls of Andrej Babis
         color = 'orange';
-        text = 'Příspěvek obsahuje odkaz na stránku Andreje Babiše ';
+        text = 'Stránka Andreje Babiše: ';
         iconPath = 'icons/butterfly.png';
       }
       // creates the icon

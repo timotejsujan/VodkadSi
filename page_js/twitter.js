@@ -8,7 +8,9 @@ window.onload = function() {
 function vodkadsiCallback() {
   // checks for every twitter article
   var article = $("[role=article]");
+  //var article = $("[data-testid=tweet]");
+  //var article = $("[role=link]");
   const tagArticle = document.getElementsByTagName("article");
-  article = [...new Set([...article, ...tagArticle])];
+  //article = [...new Set([...article, ...tagArticle])];
   waitForCheckPage(article);
 }

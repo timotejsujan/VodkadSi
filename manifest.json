@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Vodkaď si?",
-  "version": "1.11",
+  "version": "1.14",
   "description": "Odkrýváme dezinformace a chytáme motýle",
   "permissions": [
     "storage"
