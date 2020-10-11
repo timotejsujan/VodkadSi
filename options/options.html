@@ -4,23 +4,23 @@
 <head>
   <meta charset="utf-8">
   <title>Vodkaď si na stavení.</title>
-  <link rel="stylesheet" type="text/css" href="css/site.css">
+  <link rel="stylesheet" type="text/css" href="/css/site.css">
 </head>
 
 <body class="vodkadsi-green">
   <div class="vodkadsi-options">
     <i class="vodkadsi-div-settings">Vodkaď si na stavení.</i>
     <a href="https://www.facebook.com/vodkadsi/" class="vodkadsi-fa vodkadsi-fb" target="_blank">
-      <img src="icons/facebook.png">
+      <img src="/icons/facebook.png">
     </a>
     <a href="http://vodkadsi.cz/" class="vodkadsi-fa vodkadsi-home" target="_blank">
-      <img src="icons/buildings.png">
+      <img src="/icons/buildings.png">
     </a>
 
 
     <hr>
     <div class="vodkadsi-div-settings">
-      <img class="vodkadsi-icon-settings" src="icons/warning.png">
+      <img class="vodkadsi-icon-settings" src="/icons/warning.png">
       Detekce nedůvěryhodných stránek
       <label class="vodkadsi-switch vodkadsi-switch-set" style="margin-top: 1px">
         <input id="dezin_switch" type="checkbox">
@@ -28,7 +28,7 @@
       </label>
     </div>
     <div class="vodkadsi-div-settings">
-      <img class="vodkadsi-icon-settings" src="icons/butterfly.png">
+      <img class="vodkadsi-icon-settings" src="/icons/butterfly.png">
       Detekce stránek Andreje Babiše
       <label class="vodkadsi-switch vodkadsi-switch-set" style="margin-top: 1px">
         <input id="babis_switch" type="checkbox">
@@ -43,8 +43,21 @@
         <span class="vodkadsi-slider vodkadsi-round"></span>
       </label>
     </div>
+    <hr>
+    <div class="vodkadsi-div-settings">
+      <span id="s_catched"></span>
+      chycených
+      <img class="vodkadsi-icon-settings" src="/icons/warning.png">
+    </div>
+    <div class="vodkadsi-div-settings">
+      <span id="bf_catched"></span>
+      chycených
+      <img class="vodkadsi-icon-settings" src="/icons/butterfly.png">
+    </div>
   </div>
-  <script src="options.js">
+  <script src="/browser-polyfill.js">
+  </script> 
+  <script src="/options/options.js">
   </script>
 </body>
 

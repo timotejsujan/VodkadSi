@@ -16,7 +16,7 @@
     "icons/warning.png"
   ],
   "options_ui": {
-    "page": "options.html",
+    "page": "options/options.html",
     "open_in_tab": false
   },
   "background": {
@@ -28,7 +28,7 @@
   "browser_action": {
     "default_icon": "icons/poop16.png",
     "default_title": "Tu si vodkaď",
-    "default_popup": "options.html"
+    "default_popup": "options/options.html"
   },
   "content_scripts": [
     {
@@ -57,11 +57,10 @@
         "*://*.facebook.com/*"
       ],
       "js": [
-        "jquery.min.js",
         "lists.js",
-        "checkurl.js",
         "base.js",
-        "page_js/fb.js"
+        "page_js/fb.js",
+        "start.js"
       ],
       "css": [
         "css/site.css",
@@ -73,11 +72,10 @@
         "*://*.twitter.com/*"
       ],
       "js": [
-        "jquery.min.js",
         "lists.js",
-        "checkurl.js",
         "base.js",
-        "page_js/twitter.js"
+        "page_js/twitter.js",
+        "start.js"
       ],
       "css": [
         "css/site.css",
@@ -91,11 +89,10 @@
         "*://www.google.sk/*"
       ],
       "js": [
-        "jquery.min.js",
         "lists.js",
-        "checkurl.js",
         "base.js",
-        "page_js/google.js"
+        "page_js/google.js",
+        "start_se.js"
       ],
       "css": [
         "css/site.css",
@@ -107,11 +104,10 @@
         "*://search.seznam.cz/*"
       ],
       "js": [
-        "jquery.min.js",
         "lists.js",
-        "checkurl.js",
         "base.js",
-        "page_js/seznam.js"
+        "page_js/seznam.js",
+        "start_se.js"
       ],
       "css": [
         "css/site.css",
@@ -123,11 +119,10 @@
         "*://*.bing.com/*"
       ],
       "js": [
-        "jquery.min.js",
         "lists.js",
-        "checkurl.js",
         "base.js",
-        "page_js/bing.js"
+        "page_js/bing.js",
+        "start_se.js"
       ],
       "css": [
         "css/site.css",

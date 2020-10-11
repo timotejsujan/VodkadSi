@@ -1,9 +1,5 @@
-
-window.onload = function() {vodkadsiCallback()};
-
 function vodkadsiCallback() {
-    getSettings();
     // checking for every search result from bing
-    var article = $("#b_results > li");
-    waitForCheckPage(article);
+    var article = document.querySelectorAll("#b_results > li");
+    vodkadsi_checkPage(article);
 }

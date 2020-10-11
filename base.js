@@ -1,40 +1,25 @@
-
-// workaround for compatibility with Mozilla Firefox extensions
-var vodkadsi_api;
-if (chrome == null) {
-  vodkadsi_api = browser;
-} else {
-  vodkadsi_api = chrome;
-}
-
-function waitForCheckPage(article){
-  if(babis_switch !== "" && dezin_switch !== "" && border_switch !== ""){
-    vodkadsi_checkPage(article);
-  } else{
-    getSettings();
-    setTimeout(waitForCheckPage, 1000);
-  }
-}
+var babis_switch;
+var dezin_switch;
+var border_switch;
+var bf_catched;
+var s_catched;
 
 // checks the given elements of current webpage for matches with untrusted urls or urls of Andrej Babis
 function vodkadsi_checkPage(article) {
-  if (article == undefined){
-    vodkadsiCallback();
-    return;
-  }
   for (var i = 0; i < article.length; i++) {
     // if the element was already checked then it doesn't need to be checked again
     if (!article[i].getAttribute("vodkadsi")) {
       // sets the attribute that element was already checked
       article[i].setAttribute("vodkadsi", true);
+      /*
       // copies the DOM
       var li = article[i].cloneNode(true);
       var form = li.querySelector("form");
       if (form != null){
         form.parentNode.removeChild(form);
-      }
+      }*/
       // gets the inner text of element
-      const articleText = li.innerText.toLowerCase();
+      const articleText = article[i].innerText.toLowerCase();
       // splitting on new line
       const articleHrefs = articleText.split("\n");
       var found = false;
@@ -48,6 +33,10 @@ function vodkadsi_checkPage(article) {
         }
         // if url was matched then break
         if (found) {
+          s_catched++;
+          chrome.storage.local.set({
+            s_catched: s_catched
+          });
           break;
         }
         // if settings for urls of Andrej Babis is on
@@ -58,6 +47,10 @@ function vodkadsi_checkPage(article) {
         }
         // if url was matched then break
         if (found) {
+          bf_catched++;
+          chrome.storage.local.set({
+            bf_catched: bf_catched
+          });
           break;
         }
       }
@@ -111,7 +104,7 @@ function vodkadsi_createIcon(iconPath, text) {
   // creates img element
   const elem = document.createElement("img");
   // src to an image
-  elem.src = vodkadsi_api.extension.getURL(iconPath);
+  elem.src = chrome.extension.getURL(iconPath);
   elem.classList.add("vodkadsi-icon");
   elem.setAttribute("alt", "Icon");
   elem.setAttribute("title", text);

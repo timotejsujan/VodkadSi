@@ -1,47 +1,3 @@
-
-// workaround for compatibility with Mozilla Firefox extensions
-var vodkadsi_api;
-if (chrome == null) {
-  vodkadsi_api = browser;
-} else {
-  vodkadsi_api = chrome;
-}
-
-// variable from settings
-var border_switch = "";
-// variable from settings
-var babis_switch = "";
-// variable from settings
-var dezin_switch = "";
-
-function getSettings() {
-  // loads the border switch settings
-  vodkadsi_api.storage.sync.get(['border_switch'], function (result) {
-    border_switch = result.border_switch;
-    if (border_switch == null) {
-      border_switch = true;
-    }
-  });
-
-  vodkadsi_api.storage.sync.get(['babis_switch'], function (result) {
-    // loads variable from settings
-    babis_switch = result.babis_switch;
-    // sets to true if undefined
-    if (babis_switch == null) {
-      babis_switch = true;
-    }
-  });
-
-  vodkadsi_api.storage.sync.get(['dezin_switch'], function (result) {
-    // loads variable from settings
-    dezin_switch = result.dezin_switch;
-    if (dezin_switch == null) {
-      // sets to true if undefined
-      dezin_switch = true;
-    }
-  });
-}
-
 // checks current url for match with untrusted urls or urls of Andrej Babis
 function vodkadsi_checkUrl(urls, img) {
   // gets current url
@@ -52,31 +8,53 @@ function vodkadsi_checkUrl(urls, img) {
     const bad_url = urls[k].toLowerCase();
     // if matches, then change the icon
     if (url.includes("//" + bad_url) || url.includes('.' + bad_url)) {
-      vodkadsi_api.runtime.sendMessage({"newIconPath": img});
-      return;
+
+      chrome.runtime.sendMessage({"newIconPath": img});
+
+      return true;
     }
   }
+  return false;
 }
 
-function waitForCheckUrl(){
-  if(babis_switch !== "" && dezin_switch !== ""){
-    // if variable is true, then check the url
-    if (dezin_switch) {
-      // checking current url for match with urls of Andrej Babis
-      vodkadsi_checkUrl(vodkadsi_list, "icons/warning.png");
+function onGot(item) {
+
+    if (item["babis_switch"]) {
+      if(vodkadsi_checkUrl(vodkadsi_babis, "icons/butterfly.png")){
+        item["bf_catched"]++;
+        chrome.storage.local.set({
+          bf_catched: item["bf_catched"]
+        });
+      }
     }
-    // if variable is true, then check the url
-    if (babis_switch) {
-      // checking current url for match with urls of Andrej Babis
-      vodkadsi_checkUrl(vodkadsi_babis, "icons/butterfly.png");
+    if (item["dezin_switch"]) {
+
+      if(vodkadsi_checkUrl(vodkadsi_list, "icons/warning.png")){
+        item["s_catched"]++;
+        chrome.storage.local.set({
+          s_catched: item["s_catched"]
+        });
+      }
     }
-  } else{
-    getSettings();
-    setTimeout(waitForCheckUrl, 1000);
-  }
+}
+  
+function onError(error) {
+console.log(`Error: ${error}`);
 }
 
-waitForCheckUrl()
+chrome.storage.local.get({
+  babis_switch: true,
+  dezin_switch: true,
+  bf_catched: 0,
+  s_catched: 0
+}, function(item) {
+  onGot(item);
+});
+
+
+
+
+
 
 	
 
