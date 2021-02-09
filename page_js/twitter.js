@@ -1,8 +1,10 @@
 
 function vodkadsiCallback(node) {
   // checks for every facebook article
-  var article = node.querySelectorAll("[role=article]");
-  var tagArticle = node.getElementsByTagName("article");
-  article = [...new Set([...article, ...tagArticle])];
-  vodkadsi_checkPage(article);
+  if(typeof node.querySelectorAll === 'function') {
+    var article = node.querySelectorAll("[role=article]");
+    var tagArticle = node.getElementsByTagName("article");
+    article = [...new Set([...article, ...tagArticle])];
+    checkPage(article.reverse(), true);
+  }
 }

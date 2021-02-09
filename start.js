@@ -1,4 +1,6 @@
 function onGot(item) {
+    //get_lists();
+
     babis_switch = item["babis_switch"];
     dezin_switch = item["dezin_switch"];
     border_switch = item["border_switch"];
@@ -26,6 +28,7 @@ function onGot(item) {
 
     // Start observing the target node for configured mutations
     observer.observe(targetNode, config);
+
 }
   
 function onError(error) {
@@ -41,3 +44,58 @@ chrome.storage.local.get({
   }, function(item) {
     onGot(item);
   });
+
+  function myFunc(myObj) {
+    var x, txt = "";
+    for (x in myObj) {
+      txt += myObj[x].name + "<br>";
+    }
+    console.log(txt);
+  }
+
+  function get_lists(){
+      /*
+    var s = document.createElement("script");
+    s.src = "http://seznam.cz/?callback=myFunc";
+    document.body.appendChild(s);
+      
+    fetch('http://vodkadsi.cz/')
+    .then(
+      function(response) {
+        if (response.status !== 200) {
+          console.log('Looks like there was a problem. Status Code: ' +
+            response.status);
+          return;
+        }
+  
+        // Examine the text in the response
+        response.json().then(function(data) {
+          console.log(data);
+        });
+      }
+    )
+    .catch(function(err) {
+      console.log('Fetch Error :-S', err);
+    })
+      
+    var response;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://vodkadsi.cz", true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            // innerText does not let the attacker inject HTML elements.
+            console.log(this.responseText);
+            response = xhr.responseText;
+            var list = [];
+            response = JSON.parse(response);
+            for(const item of response){
+                list.push(item.URL);
+            }
+            vodkadsi_list = list;
+        }
+    }
+    xhr.send();
+    */
+  }
+
+  

@@ -4,92 +4,96 @@ var border_switch;
 var bf_catched;
 var s_catched;
 
+
+var disinformation_style = {color:"#D64933", text:"Nedůvěryhodná stránka: ", iconPath:"icons/warning.png"};
+var babis_style = {color:"orange", text:"Stránka Andreje Babiše: ", iconPath:"icons/butterfly.png"};
+
 // checks the given elements of current webpage for matches with untrusted urls or urls of Andrej Babis
-function vodkadsi_checkPage(article) {
-  for (var i = 0; i < article.length; i++) {
+function checkPage(articles, twitter = false) {
+  articles.forEach(article => {
     // if the element was already checked then it doesn't need to be checked again
-    if (!article[i].getAttribute("vodkadsi")) {
-      // sets the attribute that element was already checked
-      article[i].setAttribute("vodkadsi", true);
-      /*
+    if (!article.getAttribute("vodkadsi")) {
+      
+      
       // copies the DOM
-      var li = article[i].cloneNode(true);
-      var form = li.querySelector("form");
-      if (form != null){
-        form.parentNode.removeChild(form);
-      }*/
+      var article_cpy = article.cloneNode(true);
+      var form = article_cpy.querySelectorAll("[vodkadsi='true']");
+      form.forEach(f =>{
+        f.parentNode.removeChild(f);
+      })
+      // sets the attribute that element was already checked
+      article.setAttribute("vodkadsi", true);
       // gets the inner text of element
-      const articleText = article[i].innerText.toLowerCase();
-      // splitting on new line
-      const articleHrefs = articleText.split("\n");
-      var found = false;
-      // checks for untruested url in every text of element
-      for (var j = 0; j < articleHrefs.length; j++) {
-        // if settings for untrusted urls is on
-        if (dezin_switch) {
-          // checks for matches with untrusted urls
-          found = vodkadsi_checkArticle(vodkadsi_list, article[i],
-              articleHrefs[j], true);
-        }
-        // if url was matched then break
-        if (found) {
-          s_catched++;
-          chrome.storage.local.set({
-            s_catched: s_catched
-          });
-          break;
-        }
-        // if settings for urls of Andrej Babis is on
-        if (babis_switch) {
-          // checks for matches with urls of Andrej Babis
-          found = found || vodkadsi_checkArticle(vodkadsi_babis, article[i],
-              articleHrefs[j], false);
-        }
-        // if url was matched then break
-        if (found) {
-          bf_catched++;
-          chrome.storage.local.set({
-            bf_catched: bf_catched
-          });
-          break;
-        }
+      var inner_text;
+      if (twitter){
+        inner_text = article_cpy.innerText.toLowerCase().split("\n");
+      } else {
+      //const inner_text = li.innerText.toLowerCase().split("\n");
+        inner_text = article_cpy.querySelectorAll("a");
+        inner_text = [...inner_text];
       }
+
+      // checks for untruested url in every text of element
+      inner_text.some(test => {
+        var line = (twitter ? test : decodeURIComponent(test.href.toLowerCase()));
+          // if settings for untrusted urls is on
+        if (dezin_switch && check_article(vodkadsi_list.vodkadsi, article,
+          line, disinformation_style)) {
+            s_catched++;
+            chrome.storage.local.set({
+              s_catched: s_catched
+            });
+            return true;
+        }
+
+        if (dezin_switch && check_article(facebook_dezin_list.data, article,
+          line, disinformation_style)) {
+            s_catched++;
+            chrome.storage.local.set({
+              s_catched: s_catched
+            });
+            return true;
+        }
+        
+        // if settings for urls of Andrej Babis is on
+        if (babis_switch && check_article(vodkadsi_babis.vodkadsi, article,
+          line, babis_style)) {
+            bf_catched++;
+            chrome.storage.local.set({
+              bf_catched: bf_catched
+            });
+            return true;
+        }
+        return false;
+      })
     }
-  }
+  });
 }
 
 // checks the text for untrusted urls or urls of Andrej Babis
-function vodkadsi_checkArticle(list, article, href, dez) {
+function check_article(list, article, href, style) {
   // checks for every url from given list
-  for (var j = 0; j < list.length; j++) {
-    const li = list[j].toLowerCase();
+  for (var site of list) {
+    const li = site.URL.toLowerCase();
     // if it matches
     if (href.startsWith(li) || href.includes("." + li) || href.includes(
-        "//" + li)) {
-      var color = '';
-      var text = '';
-      var iconPath = '';
-      // if checking for untrusted urls
-      if (dez) {
-        color = '#D64933';
-        text = 'Nedůvěryhodná stránka: ';
-        iconPath = 'icons/warning.png';
-      } else { // if checking for urls of Andrej Babis
-        color = 'orange';
-        text = 'Stránka Andreje Babiše: ';
-        iconPath = 'icons/butterfly.png';
-      }
+        "//" + li) || href.includes("/"+li+"/?")) {
       // creates the icon
-      const icon = vodkadsi_createIcon(iconPath, text);
+      var icon = create_icon(style.iconPath, style.text + site.URL);
+      // creates a popup
+      var popup = create_popup(site);
+      const toggle = document.createElement("script");
+      toggle.innerHTML = 'function togglePopup(elem){elem.classList.toggle("vodkadsi_show");}';
       // creates a div
       const elem = document.createElement("div");
-      elem.appendChild(icon);
+      popup.appendChild(icon);
+      elem.appendChild(popup);
+      elem.appendChild(toggle);
+
       // if border settings is on, create a border
       if (border_switch) {
-        article.style.border = "solid " + color + " 2px";
+        article.style.border = "solid " + style.color + " 2px";
       }
-      // put an explanation title to the img
-      icon.setAttribute("title", icon.getAttribute("title") + list[j]);
       article.prepend(elem);
       // it matches, return true
       return true;
@@ -99,8 +103,42 @@ function vodkadsi_checkArticle(list, article, href, dez) {
   return false;
 }
 
+function create_popup(site) {
+  const elem = document.createElement("div");
+  elem.classList.add("vodkadsi_popup");
+  elem.setAttribute("onclick", "togglePopup(this.querySelector(\"span\"))");
+
+  const span = document.createElement("span");
+  span.classList.add("vodkadsi_popuptext");
+  span.innerHTML = "<div><i>Nedůvěryhodná stránka:</i></div><b>"+site.URL;
+  if (typeof site.SOURCE !== "undefined") {
+    span.innerHTML +=         
+                    "</b><br><div><i>Zdroje:</i></div>";
+
+      var sources_arr = site.SOURCE.split(",");
+
+      sources_arr.forEach(
+        x => {
+          const a = document.createElement("a");
+          const result = sources_list.data.find( ({ SOURCE }) => SOURCE === x );
+          a.href=result.URL;
+          a.textContent=result.NAME;
+          a.target="_blank";
+          span.appendChild(a);
+          span.append(document.createElement("br"));
+        }
+      )
+
+      if (sources_arr.length != 0 )span.removeChild(span.lastChild);
+  }
+
+  elem.appendChild(span);
+
+  return elem;
+}
+
 // creates an icon
-function vodkadsi_createIcon(iconPath, text) {
+function create_icon(iconPath, text) {
   // creates img element
   const elem = document.createElement("img");
   // src to an image
@@ -110,4 +148,5 @@ function vodkadsi_createIcon(iconPath, text) {
   elem.setAttribute("title", text);
   return elem;
 }
+
 
