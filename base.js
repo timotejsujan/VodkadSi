@@ -1,12 +1,7 @@
 
 var staticData = (new StaticData()).constructor;
 
-// Global settings variables
-var babis_switch; // babis detection on
-var dezin_switch; // disinformation detection on
-var border_switch; // draw border around detections
-var bf_catched; // number of babis catched
-var s_catched; // number of disinformation catched
+var settings = new Settings();
 
 var disinformation_style = {color:"#D64933", text:"Nedůvěryhodná stránka: ", iconPath:"icons/warning.png"};
 var babis_style = {color:"orange", text:"Stránka Andreje Babiše: ", iconPath:"icons/butterfly.png"};
@@ -34,30 +29,30 @@ function checkPage(articles, checkInnerText = false) {
       inner_text.some(elem => {
         var line = (checkInnerText ? elem : decodeURIComponent(elem.href.toLowerCase()));
           // if settings for untrusted urls is on
-        if (dezin_switch && check_article(staticData.untrustedSites, article,
+        if (settings.getUntrustedDetectOn && check_article(staticData.untrustedSites, article,
           line, disinformation_style)) {
-            s_catched++;
+            settings.getNumOfUntrustedCatched++;
             chrome.storage.local.set({
-              s_catched: s_catched
+              s_catched: settings.getNumOfUntrustedCatched
             });
             return true;
         }
 
-        if (dezin_switch && check_article(staticData.untrustedFacebookPages, article,
+        if (settings.getUntrustedDetectOn && check_article(staticData.untrustedFacebookPages, article,
           line, disinformation_style)) {
-            s_catched++;
+            settings.getNumOfUntrustedCatched++;
             chrome.storage.local.set({
-              s_catched: s_catched
+              s_catched: settings.getNumOfUntrustedCatched
             });
             return true;
         }
         
         // if settings for urls of Andrej Babis is on
-        if (babis_switch && check_article(staticData.babisSites, article,
+        if (settings.getBabisDetectOn && check_article(staticData.babisSites, article,
           line, babis_style)) {
-            bf_catched++;
+            settings.getNumOfBabisCatched++;
             chrome.storage.local.set({
-              bf_catched: bf_catched
+              bf_catched: settings.getNumOfBabisCatched
             });
             return true;
         }
@@ -88,7 +83,7 @@ function check_article(list, article, href, style) {
       elem.appendChild(toggle);
 
       // if border settings is on, create a border
-      if (border_switch) {
+      if (settings.getDrawBorderOn) {
         article.style.border = "solid " + style.color + " 2px";
       }
       article.prepend(elem);

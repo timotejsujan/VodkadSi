@@ -6,15 +6,10 @@ chrome.storage.local.get({
   border_switch: true,
   bf_catched: 0,
   s_catched: 0
-}, function(item) {
-    // Save the settings to global variables
-    babis_switch = item["babis_switch"];
-    dezin_switch = item["dezin_switch"];
-    border_switch = item["border_switch"];
-    bf_catched = item["bf_catched"];
-    s_catched = item["s_catched"];
+}, function(storage) {
+  settings.set(storage);
     // Start the script
-    onGot(item);
+    onGot();
 });
 
 // Starts the script
