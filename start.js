@@ -6,7 +6,7 @@ chrome.storage.local.get({
   bf_catched: 0,
   s_catched: 0
   }, function(storage) {
-    settings.set(storage);
+    Settings.set(storage);
     // Start the script
     onGot();
   }

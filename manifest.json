@@ -59,6 +59,7 @@
       "js": [
         "StaticData.js",
         "Settings.js",
+        "ViewCreator.js",
         "base.js",
         "page_js/fb.js",
         "start.js"
@@ -75,6 +76,7 @@
       "js": [
         "StaticData.js",
         "Settings.js",
+        "ViewCreator.js",
         "base.js",
         "page_js/twitter.js",
         "start.js"
@@ -93,6 +95,7 @@
       "js": [
         "StaticData.js",
         "Settings.js",
+        "ViewCreator.js",
         "base.js",
         "page_js/google.js",
         "start_se.js"
@@ -109,6 +112,7 @@
       "js": [
         "StaticData.js",
         "Settings.js",
+        "ViewCreator.js",
         "base.js",
         "page_js/seznam.js",
         "start_se.js"
@@ -125,6 +129,7 @@
       "js": [
         "StaticData.js",
         "Settings.js",
+        "ViewCreator.js",
         "base.js",
         "page_js/bing.js",
         "start_se.js"

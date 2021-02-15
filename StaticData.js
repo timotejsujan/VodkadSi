@@ -2,7 +2,7 @@
 class StaticData {
 
     static getSource(id){
-        return sources.find( ({ SOURCE }) => SOURCE === id );
+        return this.sources.find( ({ SOURCE }) => SOURCE === id );
     }
     
     // list of urls of Andrej Babis

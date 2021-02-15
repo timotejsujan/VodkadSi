@@ -18,7 +18,7 @@ function restore_options() {
   chrome.storage.local.get({
     babis_switch: true,
     dezin_switch: true,
-    border_switch: false,
+    border_switch: true,
     bf_catched: 0,
     s_catched: 0
   }, function(res) {
