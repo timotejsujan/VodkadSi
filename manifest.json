@@ -45,7 +45,7 @@
         "*://*.bing.com/*"
       ],
       "js": [
-        "lists.js",
+        "StaticData.js",
         "checkurl.js"
       ],
       "css": [
@@ -57,7 +57,7 @@
         "*://*.facebook.com/*"
       ],
       "js": [
-        "lists.js",
+        "StaticData.js",
         "base.js",
         "page_js/fb.js",
         "start.js"
@@ -72,7 +72,7 @@
         "*://*.twitter.com/*"
       ],
       "js": [
-        "lists.js",
+        "StaticData.js",
         "base.js",
         "page_js/twitter.js",
         "start.js"
@@ -89,7 +89,7 @@
         "*://www.google.sk/*"
       ],
       "js": [
-        "lists.js",
+        "StaticData.js",
         "base.js",
         "page_js/google.js",
         "start_se.js"
@@ -104,7 +104,7 @@
         "*://search.seznam.cz/*"
       ],
       "js": [
-        "lists.js",
+        "StaticData.js",
         "base.js",
         "page_js/seznam.js",
         "start_se.js"
@@ -119,7 +119,7 @@
         "*://*.bing.com/*"
       ],
       "js": [
-        "lists.js",
+        "StaticData.js",
         "base.js",
         "page_js/bing.js",
         "start_se.js"

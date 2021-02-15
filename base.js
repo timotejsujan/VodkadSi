@@ -1,43 +1,40 @@
-var babis_switch;
-var dezin_switch;
-var border_switch;
-var bf_catched;
-var s_catched;
 
+var staticData = (new StaticData()).constructor;
+
+// Global settings variables
+var babis_switch; // babis detection on
+var dezin_switch; // disinformation detection on
+var border_switch; // draw border around detections
+var bf_catched; // number of babis catched
+var s_catched; // number of disinformation catched
 
 var disinformation_style = {color:"#D64933", text:"Nedůvěryhodná stránka: ", iconPath:"icons/warning.png"};
 var babis_style = {color:"orange", text:"Stránka Andreje Babiše: ", iconPath:"icons/butterfly.png"};
 
 // checks the given elements of current webpage for matches with untrusted urls or urls of Andrej Babis
-function checkPage(articles, twitter = false) {
+function checkPage(articles, checkInnerText = false) {
   articles.forEach(article => {
     // if the element was already checked then it doesn't need to be checked again
-    if (!article.getAttribute("vodkadsi")) {
+    if (!article.getAttribute("vodkadsi")) { 
       
-      
-      // copies the DOM
-      var article_cpy = article.cloneNode(true);
-      var form = article_cpy.querySelectorAll("[vodkadsi='true']");
-      form.forEach(f =>{
-        f.parentNode.removeChild(f);
-      })
+      var article_cpy = copyAndFilterAlreadyChecked(article);
+
       // sets the attribute that element was already checked
       article.setAttribute("vodkadsi", true);
       // gets the inner text of element
       var inner_text;
-      if (twitter){
+      if (checkInnerText){
         inner_text = article_cpy.innerText.toLowerCase().split("\n");
       } else {
-      //const inner_text = li.innerText.toLowerCase().split("\n");
         inner_text = article_cpy.querySelectorAll("a");
         inner_text = [...inner_text];
       }
 
       // checks for untruested url in every text of element
-      inner_text.some(test => {
-        var line = (twitter ? test : decodeURIComponent(test.href.toLowerCase()));
+      inner_text.some(elem => {
+        var line = (checkInnerText ? elem : decodeURIComponent(elem.href.toLowerCase()));
           // if settings for untrusted urls is on
-        if (dezin_switch && check_article(vodkadsi_list.vodkadsi, article,
+        if (dezin_switch && check_article(staticData.untrustedSites, article,
           line, disinformation_style)) {
             s_catched++;
             chrome.storage.local.set({
@@ -46,7 +43,7 @@ function checkPage(articles, twitter = false) {
             return true;
         }
 
-        if (dezin_switch && check_article(facebook_dezin_list.data, article,
+        if (dezin_switch && check_article(staticData.untrustedFacebookPages, article,
           line, disinformation_style)) {
             s_catched++;
             chrome.storage.local.set({
@@ -56,7 +53,7 @@ function checkPage(articles, twitter = false) {
         }
         
         // if settings for urls of Andrej Babis is on
-        if (babis_switch && check_article(vodkadsi_babis.vodkadsi, article,
+        if (babis_switch && check_article(staticData.babisSites, article,
           line, babis_style)) {
             bf_catched++;
             chrome.storage.local.set({
@@ -120,7 +117,7 @@ function create_popup(site) {
       sources_arr.forEach(
         x => {
           const a = document.createElement("a");
-          const result = sources_list.data.find( ({ SOURCE }) => SOURCE === x );
+          const result = staticData.getSource(x);
           a.href=result.URL;
           a.textContent=result.NAME;
           a.target="_blank";
@@ -147,6 +144,19 @@ function create_icon(iconPath, text) {
   elem.setAttribute("alt", "Icon");
   elem.setAttribute("title", text);
   return elem;
+}
+
+// copies article and removes already checked elements
+function copyAndFilterAlreadyChecked(article){
+  // copies the DOM
+  var article_cpy = article.cloneNode(true);
+  // select all already checked elements
+  var form = article_cpy.querySelectorAll("[vodkadsi='true']");
+  form.forEach(f =>{
+    // removes itself from the copy of an article
+    f.parentNode.removeChild(f);
+  })
+  return article_cpy;
 }
 
 
