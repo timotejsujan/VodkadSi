@@ -46,7 +46,9 @@
       ],
       "js": [
         "StaticData.js",
-        "checkurl.js"
+        "Settings.js",
+        "ViewCreator.js",
+        "Checkurl.js"
       ],
       "css": [
         "css/site.css"

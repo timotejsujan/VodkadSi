@@ -1,25 +1,38 @@
 
 class Settings {
 
+    static getAndRun(startup) {
+        chrome.storage.local.get({
+            babisDetectOn: true,
+            untrustedDetectOn: true,
+            drawBorderOn: true,
+            numOfUntrustedCatched: 0,
+            s_catched: 0
+          }, function(storage) {
+            Settings.set(storage);
+            startup.run();
+          });
+    }
+
     static set(storage){
-        this.babisDetectOn = storage["babis_switch"];
-        this.untrustedDetectOn = storage["dezin_switch"];
-        this.drawBorderOn = storage["border_switch"];
-        this.numOfBabisCatched = storage["bf_catched"];
-        this.numOfUntrustedCatched = storage["s_catched"];
+        this.babisDetectOn = storage["babisDetectOn"];
+        this.untrustedDetectOn = storage["untrustedDetectOn"];
+        this.drawBorderOn = storage["drawBorderOn"];
+        this.numOfBabisCatched = storage["numOfBabisCatched"];
+        this.numOfUntrustedCatched = storage["numOfUntrustedCatched"];
     }
 
     static incNumOfBabisCatched(){
         this.numOfBabisCatched++;
         chrome.storage.local.set({
-          bf_catched: this.numOfBabisCatched
+            numOfBabisCatched: this.numOfBabisCatched
         });
       }
       
     static incNumOfUntrustedCatched(){
         this.numOfUntrustedCatched++;
         chrome.storage.local.set({
-          s_catched: this.numOfUntrustedCatched
+            numOfUntrustedCatched: this.numOfUntrustedCatched
         });
       }
 

@@ -1,10 +1,10 @@
 // Get the stored settings
 chrome.storage.local.get({
-  babis_switch: true, // default values
-  dezin_switch: true,
-  border_switch: true,
-  bf_catched: 0,
-  s_catched: 0
+  babisDetectOn: true, // default values
+  untrustedDetectOn: true,
+  drawBorderOn: true,
+  numOfBabisCatched: 0,
+  numOfUntrustedCatched: 0
   }, function(storage) {
     Settings.set(storage);
     // Start the script

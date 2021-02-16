@@ -5,9 +5,9 @@ var chrome;
 // Saves options to chrome.storage
 function save_options(e) {
   chrome.storage.local.set({
-    babis_switch: document.querySelector("#babis_switch").checked,
-    dezin_switch: document.querySelector("#dezin_switch").checked,
-    border_switch: document.querySelector("#border_switch").checked
+    babisDetectOn: document.querySelector("#babisDetectOn").checked,
+    untrustedDetectOn: document.querySelector("#untrustedDetectOn").checked,
+    drawBorderOn: document.querySelector("#drawBorderOn").checked
   });
   e.preventDefault();
 }
@@ -16,26 +16,26 @@ function save_options(e) {
 // stored in chrome.storage.
 function restore_options() {
   chrome.storage.local.get({
-    babis_switch: true,
-    dezin_switch: true,
-    border_switch: true,
-    bf_catched: 0,
-    s_catched: 0
+    babisDetectOn: true,
+    untrustedDetectOn: true,
+    drawBorderOn: true,
+    numOfBabisCatched: 0,
+    numOfUntrustedCatched: 0
   }, function(res) {
-    document.querySelector("#babis_switch").checked = res.babis_switch;
-    document.querySelector("#dezin_switch").checked = res.dezin_switch;
-    document.querySelector("#border_switch").checked = res.border_switch;
-    document.querySelector("#bf_catched").textContent = res.bf_catched;
-    document.querySelector("#s_catched").textContent = res.s_catched;
+    document.querySelector("#babisDetectOn").checked = res.babisDetectOn;
+    document.querySelector("#untrustedDetectOn").checked = res.untrustedDetectOn;
+    document.querySelector("#drawBorderOn").checked = res.drawBorderOn;
+    document.querySelector("#numOfBabisCatched").textContent = res.numOfBabisCatched;
+    document.querySelector("#numOfUntrustedCatched").textContent = res.numOfUntrustedCatched;
   });
 }
 
 document.addEventListener('DOMContentLoaded', restore_options);
 
-document.querySelector('#babis_switch').addEventListener('change',
+document.querySelector('#babisDetectOn').addEventListener('change',
     save_options);
-document.querySelector('#dezin_switch').addEventListener('change',
+document.querySelector('#untrustedDetectOn').addEventListener('change',
   save_options);
-document.querySelector('#border_switch').addEventListener('change',
+document.querySelector('#drawBorderOn').addEventListener('change',
   save_options);
 
