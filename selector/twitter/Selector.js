@@ -14,4 +14,8 @@ class Selector {
   static extract(nodeCopy) {
     return nodeCopy.innerText.toLowerCase().split("\n");
   }
+
+  static matchesFacebookPage(line, fbPage){
+    return line.includes("facebook.com/"+fbPage+"/");
+  }
 }

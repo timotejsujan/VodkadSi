@@ -11,4 +11,8 @@ class Selector {
     return  [...list].map(x => decodeURIComponent(x.href.toLowerCase()))
   }
 
+  static matchesFacebookPage(line, fbPage){
+    return line.includes("facebook.com/"+fbPage+"/");
+  }
+
 }

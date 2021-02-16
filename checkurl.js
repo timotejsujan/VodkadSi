@@ -6,14 +6,13 @@ class CheckUrl {
     // gets current url
     const currUrl = window.location.href.toLowerCase();
     // checks match for every url from given list
-    list.forEach(record => {
+    return list.some(record => {
       // if matches, then change the icon
-      if (this.matches(currUrl, record.URL.toLowerCase())) {
-        chrome.runtime.sendMessage({"newIconPath": iconPath});
-        return true;
-      }
+      if (!this.matches(currUrl, record.URL.toLowerCase())) return false;
+
+      chrome.runtime.sendMessage({"newIconPath": iconPath});
+      return true;
     });
-    return false;
   }
 
   static matches(currUrl, badUrl){

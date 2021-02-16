@@ -15,4 +15,8 @@ class Selector {
     var list = nodeCopy.querySelectorAll("a");
     return  [...list].map(x => decodeURIComponent(x.href.toLowerCase()))
   }
+
+  static matchesFacebookPage(line, fbPage){
+    return line.includes("/"+fbPage+"/?");
+  }
 }

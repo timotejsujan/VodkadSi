@@ -4,6 +4,10 @@ class StaticData {
     static getSource(id){
         return this.sources.find( ({ SOURCE }) => SOURCE === id );
     }
+
+    static getUntrustedSiteFromFacebookPage(siteID){
+        return this.untrustedSites.find( ({ ID }) => ID === siteID );
+    }
     
     // list of urls of Andrej Babis
     static babisSites = [

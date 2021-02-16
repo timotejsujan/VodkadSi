@@ -15,28 +15,24 @@ class ViewCreator{
 
     static createView(site){
         // creates the icon
-        const icon = this.createIcon(site);
+        const icon = this.createIcon();
         // creates a popup
         const popup = this.createPopup(site);
-        popup.style.zIndex = "2147483647";
         popup.appendChild(icon);
-
         // creates a div
         const div = document.createElement("div");
         div.appendChild(popup);
-        
         return div;
     }
 
     // creates an icon
-    static createIcon(site) {
+    static createIcon() {
         // creates img element
         const img = document.createElement("img");
         // src to an image
         img.src = chrome.extension.getURL(this.currentStyle.iconPath);
         img.classList.add("vodkadsi-icon");
         img.setAttribute("alt", "Icon");
-        img.setAttribute("title", this.currentStyle.text + site.URL);
         return img;
     }
 
@@ -44,15 +40,11 @@ class ViewCreator{
         const div = document.createElement("div");
         div.classList.add("vodkadsi_popup");
         div.setAttribute("id", "vodkadsi"+this.counter);
-      
         var span = document.createElement("span");
         span.classList.add("vodkadsi_popuptext");
-        span.innerHTML = "<div><i>"+this.currentStyle.text+"</i></div><b>"+site.URL;
-
+        span.innerHTML = "<div><i>"+this.currentStyle.text+"</i></div><b>"+decodeURIComponent(site.URL);
         span = this.setSource(span, site);
-      
         div.appendChild(span);
-      
         return div;
     }
 
@@ -68,10 +60,14 @@ class ViewCreator{
     }
 
     static setSource(span, site){
-        if (typeof site.SOURCE !== "undefined") {
+        var sourcesStr = site.SOURCE;
+        if (typeof site.SiteID !== "undefined") {
+            sourcesStr = StaticData.getUntrustedSiteFromFacebookPage(site.SiteID).SOURCE;
+        }
+        if (typeof sourcesStr !== "undefined") {
             span.innerHTML += "</b><br><div><i>Zdroje:</i></div>";
         
-            var sources_arr = site.SOURCE.split(",");
+            var sources_arr = sourcesStr.split(",");
     
             sources_arr.forEach(
                 x => {
