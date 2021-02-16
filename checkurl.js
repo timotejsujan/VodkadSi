@@ -1,4 +1,3 @@
-var staticData = (new StaticData()).constructor;
 
 // checks current url for match with untrusted urls or urls of Andrej Babis
 function checkUrl(urls, img) {
@@ -18,25 +17,18 @@ function checkUrl(urls, img) {
   return false;
 }
 
-function onGot(item) {
+function onGot() {
 
-  if (item["dezin_switch"]) {
-
-    if(checkUrl(staticData.untrustedSites, "icons/warning.png")){
-      item["s_catched"]++;
-      chrome.storage.local.set({
-        s_catched: item["s_catched"]
-      });
+  if (Settings.untrustedDetectOn) {
+    if(checkUrl(StaticData.untrustedSites, ViewCreator.untrustedStyle.iconPath)){
+      Settings.incNumOfUntrustedCatched();
       return;
     }
   }
 
-  if (item["babis_switch"]) {
-    if(checkUrl(staticData.babisSites, "icons/butterfly.png")){
-      item["bf_catched"]++;
-      chrome.storage.local.set({
-        bf_catched: item["bf_catched"]
-      });
+  if (Settings.babisDetectOn) {
+    if(checkUrl(StaticData.babisSites, ViewCreator.babisStyle.iconPath)){
+      Settings.incNumOfBabisCatched();
     }
   }
 }
@@ -48,10 +40,12 @@ console.log(`Error: ${error}`);
 chrome.storage.local.get({
   babis_switch: true,
   dezin_switch: true,
+  border_switch: true,
   bf_catched: 0,
   s_catched: 0
-}, function(item) {
-  onGot(item);
+}, function(storage) {
+  Settings.set(storage);
+  onGot();
 });
 
 

@@ -5,7 +5,7 @@ function checkPage(articles, checkInnerText = false) {
     // if the element was already checked then it doesn't need to be checked again
     if (article.getAttribute("vodkadsi")) return true; 
     // sets the attribute that element was already checked
-    article.setAttribute("vodkadsi", true); 
+    article.setAttribute("vodkadsi", "checked"); 
       
     var article_cpy = copyAndFilterAlreadyChecked(article);
 
@@ -24,13 +24,13 @@ function checkPage(articles, checkInnerText = false) {
         // if settings for untrusted urls is on
       if (Settings.untrustedDetectOn && check_article(StaticData.untrustedSites, article,
         line)) {
-          incNumOfUntrustedCatched();
+          Settings.incNumOfUntrustedCatched();
           return true;
       }
 
       if (Settings.untrustedDetectOn && check_article(StaticData.untrustedFacebookPages, article,
-        line, "untrusted")) {
-          incNumOfUntrustedCatched();
+        line)) {
+          Settings.incNumOfUntrustedCatched();
           return true;
       }
       ViewCreator.setStyle("babis");
@@ -38,7 +38,7 @@ function checkPage(articles, checkInnerText = false) {
       // if settings for urls of Andrej Babis is on
       if (Settings.babisDetectOn && check_article(StaticData.babisSites, article,
         line)) {
-          incNumOfBabisCatched();
+          Settings.incNumOfBabisCatched();
           return true;
       }
       return false;
@@ -81,20 +81,6 @@ function copyAndFilterAlreadyChecked(article){
     f.parentNode.removeChild(f);
   })
   return article_cpy;
-}
-
-function incNumOfBabisCatched(){
-  Settings.numOfBabisCatched++;
-  chrome.storage.local.set({
-    bf_catched: Settings.numOfBabisCatched
-  });
-}
-
-function incNumOfUntrustedCatched(){
-  Settings.numOfUntrustedCatched++;
-  chrome.storage.local.set({
-    s_catched: Settings.numOfUntrustedCatched
-  });
 }
 
 
