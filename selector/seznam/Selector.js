@@ -12,7 +12,7 @@ class Selector {
   }
 
   static matchesFacebookPage(line, fbPage){
-    return line.includes("facebook.com/"+fbPage+"/");
+    return line.includes("facebook.com/"+fbPage);
   }
 
 }

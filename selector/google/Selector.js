@@ -2,7 +2,7 @@ class Selector {
 
   static select() {
     // checking for every search result from google
-    this.selected = document.querySelectorAll("#rso > div");
+    this.selected = [...document.getElementById("rso").getElementsByClassName("g")];
   }
 
   static extract(nodeCopy) {
@@ -11,6 +11,6 @@ class Selector {
   }
 
   static matchesFacebookPage(line, fbPage){
-    return line.includes("facebook.com/"+fbPage+"/");
+    return line.includes("facebook.com/"+fbPage);
   }
 }

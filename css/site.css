@@ -142,7 +142,6 @@ input:checked + .vodkadsi-slider:before {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  z-index: 2147483647;
 }
 
 /* The actual popup */

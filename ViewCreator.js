@@ -2,7 +2,7 @@ class ViewCreator{
     static counter = 0;
     static untrustedStyle = {color:"#D64933", text:"Nedůvěryhodná stránka: ", iconPath:"icons/warning.png"};
     static babisStyle = {color:"orange", text:"Stránka Andreje Babiše: ", iconPath:"icons/butterfly.png"};
-    static currentStyle;
+    static currentStyle = {color:"#D64933", text:"Nedůvěryhodná stránka: ", iconPath:"icons/warning.png"};
 
     static setStyle(style){
         if (style === "untrusted") this.currentStyle = this.untrustedStyle;
@@ -30,7 +30,7 @@ class ViewCreator{
         // creates img element
         const img = document.createElement("img");
         // src to an image
-        img.src = chrome.extension.getURL(this.currentStyle.iconPath);
+        img.src = chrome.extension.getURL(ViewCreator.currentStyle.iconPath);
         img.classList.add("vodkadsi-icon");
         img.setAttribute("alt", "Icon");
         return img;
