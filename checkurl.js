@@ -35,10 +35,6 @@ class CheckUrl {
       }
     }
   }
-    
-  static onError(error) {
-  console.log(`Error: ${error}`);
-  }
 
 }
 

@@ -7,7 +7,7 @@ class Settings {
             untrustedDetectOn: true,
             drawBorderOn: true,
             numOfUntrustedCatched: 0,
-            s_catched: 0
+            numOfBabisCatched: 0
           }, function(storage) {
             Settings.set(storage);
             startup.run();

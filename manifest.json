@@ -48,7 +48,7 @@
         "StaticData.js",
         "Settings.js",
         "ViewCreator.js",
-        "Checkurl.js"
+        "CheckUrl.js"
       ],
       "css": [
         "css/site.css"
@@ -62,9 +62,9 @@
         "StaticData.js",
         "Settings.js",
         "ViewCreator.js",
-        "base.js",
-        "page_js/fb.js",
-        "start.js"
+        "selector/facebook/Selector.js",
+        "Checker.js",
+        "CheckSocialSite.js"
       ],
       "css": [
         "css/site.css",
@@ -79,9 +79,9 @@
         "StaticData.js",
         "Settings.js",
         "ViewCreator.js",
-        "base.js",
-        "page_js/twitter.js",
-        "start.js"
+        "selector/twitter/Selector.js",
+        "Checker.js",
+        "CheckSocialSite.js"
       ],
       "css": [
         "css/site.css",
@@ -98,9 +98,9 @@
         "StaticData.js",
         "Settings.js",
         "ViewCreator.js",
-        "base.js",
-        "page_js/google.js",
-        "start_se.js"
+        "selector/google/Selector.js",
+        "Checker.js",
+        "CheckSearchEngine.js"
       ],
       "css": [
         "css/site.css",
@@ -115,9 +115,9 @@
         "StaticData.js",
         "Settings.js",
         "ViewCreator.js",
-        "base.js",
-        "page_js/seznam.js",
-        "start_se.js"
+        "selector/seznam/Selector.js",
+        "Checker.js",
+        "CheckSearchEngine.js"
       ],
       "css": [
         "css/site.css",
@@ -132,9 +132,9 @@
         "StaticData.js",
         "Settings.js",
         "ViewCreator.js",
-        "base.js",
-        "page_js/bing.js",
-        "start_se.js"
+        "selector/bing/Selector.js",
+        "Checker.js",
+        "CheckSearchEngine.js"
       ],
       "css": [
         "css/site.css",
