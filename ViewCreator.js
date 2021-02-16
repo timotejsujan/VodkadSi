@@ -15,7 +15,7 @@ class ViewCreator{
 
     static createView(site){
         // creates the icon
-        const icon = this.createIcon();
+        const icon = this.createIcon(this.currentStyle.iconPath);
         // creates a popup
         const popup = this.createPopup(site);
         popup.appendChild(icon);
@@ -26,11 +26,11 @@ class ViewCreator{
     }
 
     // creates an icon
-    static createIcon() {
+    static createIcon(iconPath) {
         // creates img element
         const img = document.createElement("img");
         // src to an image
-        img.src = chrome.extension.getURL(ViewCreator.currentStyle.iconPath);
+        img.src = chrome.runtime.getURL(iconPath);
         img.classList.add("vodkadsi-icon");
         img.setAttribute("alt", "Icon");
         return img;
