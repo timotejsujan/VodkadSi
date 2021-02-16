@@ -3,61 +3,52 @@
 function checkPage(articles, checkInnerText = false) {
   articles.forEach(article => {
     // if the element was already checked then it doesn't need to be checked again
-    if (!article.getAttribute("vodkadsi")) { 
+    if (article.getAttribute("vodkadsi")) return true; 
+    // sets the attribute that element was already checked
+    article.setAttribute("vodkadsi", true); 
       
-      var article_cpy = copyAndFilterAlreadyChecked(article);
+    var article_cpy = copyAndFilterAlreadyChecked(article);
 
-      // sets the attribute that element was already checked
-      article.setAttribute("vodkadsi", true);
-      // gets the inner text of element
-      var inner_text;
-      if (checkInnerText){
-        inner_text = article_cpy.innerText.toLowerCase().split("\n");
-      } else {
-        inner_text = article_cpy.querySelectorAll("a");
-        inner_text = [...inner_text];
+    // gets the inner text of element
+    var inner_text;
+    if (checkInnerText){
+      inner_text = article_cpy.innerText.toLowerCase().split("\n");
+    } else {
+      inner_text = article_cpy.querySelectorAll("a");
+      inner_text = [...inner_text].map(x => decodeURIComponent(x.href.toLowerCase()))
+    }
+
+    // checks for untruested url in every text of element
+    inner_text.some(line => {
+      ViewCreator.setStyle("untrusted");
+        // if settings for untrusted urls is on
+      if (Settings.untrustedDetectOn && check_article(StaticData.untrustedSites, article,
+        line)) {
+          incNumOfUntrustedCatched();
+          return true;
       }
 
-      // checks for untruested url in every text of element
-      inner_text.some(elem => {
-        var line = (checkInnerText ? elem : decodeURIComponent(elem.href.toLowerCase()));
-          // if settings for untrusted urls is on
-        if (Settings.untrustedDetectOn && check_article(StaticData.untrustedSites, article,
-          line, "untrusted")) {
-            Settings.numOfUntrustedCatched++;
-            chrome.storage.local.set({
-              s_catched: Settings.numOfUntrustedCatched
-            });
-            return true;
-        }
+      if (Settings.untrustedDetectOn && check_article(StaticData.untrustedFacebookPages, article,
+        line, "untrusted")) {
+          incNumOfUntrustedCatched();
+          return true;
+      }
+      ViewCreator.setStyle("babis");
 
-        if (Settings.untrustedDetectOn && check_article(StaticData.untrustedFacebookPages, article,
-          line, "untrusted")) {
-            Settings.numOfUntrustedCatched++;
-            chrome.storage.local.set({
-              s_catched: Settings.numOfUntrustedCatched
-            });
-            return true;
-        }
-        
-        // if settings for urls of Andrej Babis is on
-        if (Settings.babisDetectOn && check_article(StaticData.babisSites, article,
-          line, "babis")) {
-            Settings.numOfBabisCatched++;
-            chrome.storage.local.set({
-              bf_catched: Settings.numOfBabisCatched
-            });
-            return true;
-        }
-        return false;
-      })
-    }
+      // if settings for urls of Andrej Babis is on
+      if (Settings.babisDetectOn && check_article(StaticData.babisSites, article,
+        line)) {
+          incNumOfBabisCatched();
+          return true;
+      }
+      return false;
+    })
+    
   });
 }
 
 // checks the text for untrusted urls or urls of Andrej Babis
-function check_article(list, article, href, style) {
-  ViewCreator.setStyle(style);
+function check_article(list, article, href) {
   // checks for every url from given list
   for (var site of list) {
     const li = site.URL.toLowerCase();
@@ -66,6 +57,7 @@ function check_article(list, article, href, style) {
         "//" + li) || href.includes("/"+li+"/?")) {
       
       article.prepend(ViewCreator.createView(site));
+      ViewCreator.createToggle();
 
       // if border settings is on, create a border
       if (Settings.drawBorderOn) article.style.border = ViewCreator.getBorderStyle();
@@ -89,6 +81,20 @@ function copyAndFilterAlreadyChecked(article){
     f.parentNode.removeChild(f);
   })
   return article_cpy;
+}
+
+function incNumOfBabisCatched(){
+  Settings.numOfBabisCatched++;
+  chrome.storage.local.set({
+    bf_catched: Settings.numOfBabisCatched
+  });
+}
+
+function incNumOfUntrustedCatched(){
+  Settings.numOfUntrustedCatched++;
+  chrome.storage.local.set({
+    s_catched: Settings.numOfUntrustedCatched
+  });
 }
 
 

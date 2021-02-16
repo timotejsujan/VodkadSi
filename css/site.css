@@ -156,9 +156,7 @@ input:checked + .vodkadsi-slider:before {
   padding: 8px 0;
   position: absolute;
   z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -113px;
+  left:110%;
   border-style: solid;
   border-color: #2CA58D;
   text-align: right;
@@ -170,12 +168,14 @@ input:checked + .vodkadsi-slider:before {
 .vodkadsi_popup .vodkadsi_popuptext::after {
   content: "";
   position: absolute;
-  top: 100%;
-  left: 50%;
+  margin-top: 4px;
+  margin-left: -20px;
+  top: 0%;
+  right: 100%;
   margin-left: -9px;
   border-width: 9px;
   border-style: solid;
-  border-color: #2CA58D transparent transparent transparent;
+  border-color: transparent #2CA58D transparent transparent;
 }
 
 /* Toggle this class - hide and show the popup */

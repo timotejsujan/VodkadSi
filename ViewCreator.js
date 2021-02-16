@@ -1,5 +1,5 @@
 class ViewCreator{
-
+    static counter = 0;
     static untrustedStyle = {color:"#D64933", text:"Nedůvěryhodná stránka: ", iconPath:"icons/warning.png"};
     static babisStyle = {color:"orange", text:"Stránka Andreje Babiše: ", iconPath:"icons/butterfly.png"};
     static currentStyle;
@@ -18,13 +18,13 @@ class ViewCreator{
         const icon = this.createIcon(site);
         // creates a popup
         const popup = this.createPopup(site);
+        popup.style.zIndex = "2147483647";
         popup.appendChild(icon);
 
-        const toggle = this.createToggle();
-        
         // creates a div
         const div = document.createElement("div");
-        div.appendChild(popup).appendChild(toggle);
+        div.appendChild(popup);
+        
         return div;
     }
 
@@ -43,7 +43,7 @@ class ViewCreator{
     static createPopup(site) {
         const div = document.createElement("div");
         div.classList.add("vodkadsi_popup");
-        div.setAttribute("onclick", "togglePopup(this.querySelector(\"span\"))");
+        div.setAttribute("id", "vodkadsi"+this.counter);
       
         var span = document.createElement("span");
         span.classList.add("vodkadsi_popuptext");
@@ -58,7 +58,12 @@ class ViewCreator{
 
     static createToggle() {
         const script = document.createElement("script");
-        script.innerHTML = 'function togglePopup(elem){elem.classList.toggle("vodkadsi_show");}';
+        document.getElementById('vodkadsi'+this.counter).addEventListener('click', function(e) {
+            e.stopPropagation();
+            const elem = this.querySelector("span");
+            elem.classList.toggle("vodkadsi_show");
+          });
+        this.counter++;
         return script;
     }
 
