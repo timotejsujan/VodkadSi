@@ -1,18 +1,18 @@
 class Checker extends Selector{
-  // checks the given elements of current webpage for matches with untrusted urls or urls of Andrej Babis
+  // check the given nodes for untrusted urls
   static checkPage(nodes) {
     nodes.forEach(node => {
       // if the element was already checked then it doesn't need to be checked again
       if (!node.getAttribute("vodkadsi")) { 
         // sets the attribute that element was already checked
         node.setAttribute("vodkadsi", "checked"); 
-          
+        // copy node and remove already checked elements from the copy 
         var nodeCopy = this.copyAndFilterAlreadyChecked(node);
 
-        // gets the inner text of element
+        // extract just important lines from the node copy
         var lines = this.extract(nodeCopy);
 
-        // checks for untruested url in every text of element
+        // check if lines match some of the given lists from StaticData
         lines.some(line => {
           return this.matchesSomeList(line, node);
         })
@@ -20,36 +20,39 @@ class Checker extends Selector{
     });
   }
 
+  // check if lines match some of the given lists from StaticData
   static matchesSomeList(line, node){
+    // set view style
     ViewCreator.setStyle("untrusted");
-    // if settings for untrusted urls is on
-    
+    // check untrusted urls
     if (Settings.untrustedDetectOn && this.checkLineForUrl(StaticData.untrustedSites, node,
       line)) {
-        Settings.incNumOfUntrustedCatched();
+        Settings.incNumOfUntrustedCatched(); // increase counter
         return true;
     }
-
+    // check untrusted facebook pages
     if (Settings.untrustedDetectOn && this.checkLineForFacebookPage(StaticData.untrustedFacebookPages, node,
       line)) {
-        Settings.incNumOfUntrustedCatched();
+        Settings.incNumOfUntrustedCatched(); // increase counter
         return true;
     }
+    // set view style
     ViewCreator.setStyle("babis");
 
-    // if settings for urls of Andrej Babis is on
+    // check untrusted urls
     if (Settings.babisDetectOn && this.checkLineForUrl(StaticData.babisSites, node,
       line)) {
-        Settings.incNumOfBabisCatched();
+        Settings.incNumOfBabisCatched(); // increase counter
         return true;
     }
     return false;
   }
 
-  // checks the text for untrusted urls or urls of Andrej Babis
+  // check if given line matches given list
   static checkLineForUrl(list, node, line) {
     return list.some( record => {
       if (!this.matchesUrl(line, record.URL.toLowerCase())) return false;
+      // create view
       Checker.createView(node, record);
       return true;
     });
@@ -61,24 +64,29 @@ class Checker extends Selector{
              line.includes("//" + badUrl);
   }
 
+  // check if given line matches given list
   static checkLineForFacebookPage(list, node, line) {
     return list.some( record => {
       if (!this.matchesFacebookPage(line, decodeURIComponent(record.URL.toLowerCase()))) return false;
+      // create view
       Checker.createView(node, record);
       return true;
     });
   }
 
+  // create view
   static createView(node, record){
+    // prepend view to given node
     node.prepend(ViewCreator.createView(record));
+    // create listener on click
     ViewCreator.createToggle();
     // if border settings is on, create a border
     if (Settings.drawBorderOn) node.style.border = ViewCreator.getBorderStyle();
   }
 
-  // copies article and removes already checked elements
+  // copy article and remove already checked elements
   static copyAndFilterAlreadyChecked(node){
-    // copies the DOM
+    // copy the DOM
     var nodeCopy = node.cloneNode(true);
     // select all already checked elements
     var alreadyChecked = nodeCopy.querySelectorAll("[vodkadsi='checked']");

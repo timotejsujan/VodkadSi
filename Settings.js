@@ -1,6 +1,7 @@
 
 class Settings {
 
+    // retrieve settings
     static getAndRun(startup) {
         chrome.storage.local.get({
             babisDetectOn: true,
@@ -14,6 +15,7 @@ class Settings {
           });
     }
 
+    // set settings
     static set(storage){
         this.babisDetectOn = storage["babisDetectOn"];
         this.untrustedDetectOn = storage["untrustedDetectOn"];
@@ -22,6 +24,7 @@ class Settings {
         this.numOfUntrustedCatched = storage["numOfUntrustedCatched"];
     }
 
+    // increase counter and save to storage
     static incNumOfBabisCatched(){
         this.numOfBabisCatched++;
         chrome.storage.local.set({
@@ -29,6 +32,7 @@ class Settings {
         });
       }
       
+    // increase counter and save to storage
     static incNumOfUntrustedCatched(){
         this.numOfUntrustedCatched++;
         chrome.storage.local.set({

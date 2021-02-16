@@ -1,15 +1,17 @@
 
 class StaticData {
 
+    // get the source record by id
     static getSource(id){
         return this.sources.find( ({ SOURCE }) => SOURCE === id );
     }
 
+    // get the untrusted site by id
     static getUntrustedSiteFromFacebookPage(siteID){
         return this.untrustedSites.find( ({ ID }) => ID === siteID );
     }
     
-    // list of urls of Andrej Babis
+    // list of urls of Andrej Babis (also untrusted)
     static babisSites = [
         {"URL":"5plus2.cz"},
         {"URL":"Acomware.cz"},
@@ -174,7 +176,7 @@ class StaticData {
         {"URL":"zznpolabi.cz"}
     ];
 
-    // list of untruested urls
+    // list of untrusted urls
     static untrustedSites = [
 
         {"ID":"1", "URL":"ac24.cz", "SOURCE":"1,2,3,4,5,6"},
@@ -420,6 +422,7 @@ class StaticData {
 
     ];
 
+    // list of sources to support why are the urls above untrusted
     static sources =  [
             {"SOURCE":"1","NAME":"konspiratori.sk","URL":"https:\/\/www.konspiratori.sk\/zoznam-stranok.php"},
             {"SOURCE":"2","NAME":"evropskehodnoty.cz","URL":"https:\/\/www.evropskehodnoty.cz\/fungovani-ceskych-dezinformacnich-webu\/fungovani-ceskych-dezinformacnich-webu-2\/"},
@@ -431,6 +434,7 @@ class StaticData {
             {"SOURCE":"9","NAME":"manipulatori.cz","URL":"https:\/\/manipulatori.cz\/na-internetu-vznika-novy-dezinformacni-web-megazpravy-cz-produkuje-nekolik-dezinformaci-za-den\/"}
     ];
 
+    // list of untrusted facebook pages
     static untrustedFacebookPages = [
     {"ID":"1","URL":"SputnikNews","SiteID":"172"},
     {"ID":"2","URL":"AC24.cz","SiteID":"1"},

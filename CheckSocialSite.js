@@ -1,7 +1,9 @@
 class CheckSocialSite extends Checker{
 
     static selectAndCheck(node){
+        // select nodes
         this.select(node);
+        // check selected nodes
         this.checkPage(this.selected);
     }
 
@@ -34,6 +36,7 @@ class CheckSocialSite extends Checker{
   
 }
 
+// get settings and run the script
 Settings.getAndRun(CheckSocialSite);
 
 
