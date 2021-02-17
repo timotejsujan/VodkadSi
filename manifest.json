@@ -3,6 +3,7 @@
   "name": "Vodkaď si?",
   "version": "2.1",
   "description": "Odkrýváme dezinformace a chytáme motýle",
+  "default_locale":"cs",
   "permissions": [
     "storage"
   ],
