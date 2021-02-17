@@ -1,10 +1,4 @@
 class ViewCreator{
-    // counter for creating IDs
-    static counter = 0;
-    static untrustedStyle = {color:"#D64933", text:"Nedůvěryhodná stránka: ", iconPath:"icons/warning.png"};
-    static babisStyle = {color:"orange", text:"Stránka Andreje Babiše: ", iconPath:"icons/butterfly.png"};
-    // current style applied
-    static currentStyle = {color:"#D64933", text:"Nedůvěryhodná stránka: ", iconPath:"icons/warning.png"};
 
     // set view style
     static setStyle(style){
@@ -20,7 +14,7 @@ class ViewCreator{
     // create view
     static createView(site){
         // create an icon
-        const icon = this.createIcon(this.currentStyle.iconPath);
+        const icon = this.createIcon();
         // create a popup
         const popup = this.createPopup(site);
         popup.appendChild(icon);
@@ -31,11 +25,11 @@ class ViewCreator{
     }
 
     // create an icon
-    static createIcon(iconPath) {
+    static createIcon() {
         // creates img element
         const img = document.createElement("img");
         // add src to an image
-        img.src = chrome.runtime.getURL(iconPath);
+        img.src = this.currentStyle.iconPath;
         img.classList.add("vodkadsi-icon");
         img.setAttribute("alt", "Icon");
         return img;
@@ -49,7 +43,16 @@ class ViewCreator{
         div.setAttribute("id", "vodkadsi"+this.counter);
         var span = document.createElement("span");
         span.classList.add("vodkadsi_popuptext");
-        span.innerHTML = "<div><i>"+this.currentStyle.text+"</i></div><b>"+decodeURIComponent(site.URL);
+        //create inner div
+        const innerDiv = document.createElement("div");
+        const i = document.createElement("i");
+        i.innerText = this.currentStyle.text;
+        innerDiv.appendChild(i);
+        span.appendChild(innerDiv);
+        // create b element
+        const b = document.createElement("b");
+        b.innerText = decodeURIComponent(site.URL);
+        span.appendChild(b);
         // set sources
         span = this.setSource(span, site);
         div.appendChild(span);
@@ -79,7 +82,7 @@ class ViewCreator{
         }
         if (typeof sourcesStr !== "undefined") {
             // source text
-            span.innerHTML += "</b><br><div><i>Zdroje:</i></div>";
+            span.innerHTML += "<br><div><i>Zdroje:</i></div>";
             // split source IDs to array
             var sources_arr = sourcesStr.split(",");
     
@@ -102,3 +105,12 @@ class ViewCreator{
     }
 
 }
+
+// SET STATIC PROPERTIES
+
+// counter for creating IDs
+ViewCreator.counter = 0;
+ViewCreator.untrustedStyle = {color:"#D64933", text:"Nedůvěryhodná stránka: ", iconPath:chrome.runtime.getURL("icons/warning.png")};
+ViewCreator.babisStyle = {color:"orange", text:"Stránka Andreje Babiše: ", iconPath:chrome.runtime.getURL("icons/butterfly.png")};
+// current style applied
+ViewCreator.currentStyle = {color:"#D64933", text:"Nedůvěryhodná stránka: ", iconPath:chrome.runtime.getURL("icons/warning.png")};
